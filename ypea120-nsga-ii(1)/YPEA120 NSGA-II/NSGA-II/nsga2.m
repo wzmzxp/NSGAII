@@ -1,15 +1,4 @@
-%
-% Copyright (c) 2015, Yarpiz (www.yarpiz.com)
-% All rights reserved. Please read the "license.txt" for license terms.
-%
-% Project Code: YPEA120
-% Project Title: Non-dominated Sorting Genetic Algorithm II (NSGA-II)
-% Publisher: Yarpiz (www.yarpiz.com)
-% 
-% Developer: S. Mostapha Kalami Heris (Member of Yarpiz Team)
-% 
-% Contact Info: sm.kalami@gmail.com, info@yarpiz.com
-%
+
 
 clc;
 clear;
@@ -170,7 +159,7 @@ end
 index1=[];
 t1=size(index);
 for i4=2:t1(2)
-    if index(i4).Cost(2)<=0
+    if index(i4).Cost(2)<=0.08
         index1=[index1,index(i4)];
     end
 end
