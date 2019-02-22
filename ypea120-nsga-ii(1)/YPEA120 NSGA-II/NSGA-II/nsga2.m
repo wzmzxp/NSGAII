@@ -27,7 +27,7 @@ VarMin=0.096;          % Lower Bound of Variables
 VarMax=0.46;          % Upper Bound of Variables
 
 VarMin1=1;
-VarMax1=2.5;
+VarMax1=5;
 % Number of Objective Functions
 x=unifrnd(VarMin,VarMax,1);
 x2=unifrnd(VarMin1,VarMax1,[1,nVar-1]);
@@ -36,9 +36,9 @@ nObj=numel(CostFunction([x,x2]));
 
 %% NSGA-II Parameters
 
-MaxIt=500;      % Maximum Number of Iterations
+MaxIt=300;      % Maximum Number of Iterations
 
-nPop=50;        % Population Size
+nPop=100;        % Population Size
 
 pCrossover=0.7;                         % Crossover Percentage
 nCrossover=2*round(pCrossover*nPop/2);  % Number of Parnets (Offsprings)
@@ -82,9 +82,9 @@ pop=CalcCrowdingDistance(pop,F);
 % Sort Population
 [pop, F]=SortPopulation(pop);
 
-
+F2=[empty_individual];
 %% NSGA-II Main Loop
-F2=empty_individual;
+% F2=empty_individual;
 for it=1:MaxIt
     
     % Crossover
@@ -146,8 +146,9 @@ for it=1:MaxIt
     
     % Store F1
     F1=pop(F{1});
-    
-%     F2=[F2 F1];
+    t=size(F1);
+    F1=reshape(F1,1,t(1));
+    F2=[F2 F1];
     % Show Iteration Information
     disp(['Iteration ' num2str(it) ': Number of F1 Members = ' num2str(numel(F1))]);
     
@@ -159,4 +160,17 @@ for it=1:MaxIt
 end
 
 %% Results
-
+t=size(F2);
+index=[];
+for i3=2:t(2)
+    if F2(i3).Cost(2)<=2
+        index=[index,F2(i3)];
+    end
+end
+index1=[];
+t1=size(index);
+for i4=2:t1(2)
+    if index(i4).Cost(2)<=0
+        index1=[index1,index(i4)];
+    end
+end
